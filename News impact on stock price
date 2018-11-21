@@ -1,0 +1,24 @@
+import numpy as np
+import pandas as pd
+
+from nltk.classify import NaiveBayesClassifier
+from nltk.corpus import subjectivity
+from nltk.sentiment import SentimentAnalyzer
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+from subprocess import check_output
+print(check_output(["ls", "../input"]).decode("utf8"))
+
+
+df = pd.read_csv('Combined_News_DIJA.csv')  
+print(df)
+
+
+from nltk import tokenize
+
+tricky_sentences = df['Top1']
+sid = SentimentIntensityAnalyzer()
+for sentence in tricky_sentences:
+    #print(sentence)
+    ss = sid.polarity_scores(sentence)
+    print( ss['compound'] )
